@@ -23,7 +23,7 @@ pub use filter::{
     rate_limiter::{RateLimiter, RateLimiterBuilder},
     FilterConfig,
 };
-pub use recv::InboundPacket;
+pub use recv::{InboundPacket, RecvPacket, UnrecognizedFrame};
 pub use send::OutboundPacket;
 
 /// Configuration for the sockets to listen on.
@@ -68,7 +68,7 @@ pub struct SocketConfig {
 /// Creates the UDP socket and handles the exit futures for the send/recv UDP handlers.
 pub struct Socket {
     pub send: mpsc::Sender<OutboundPacket>,
-    pub recv: mpsc::Receiver<InboundPacket>,
+    pub recv: mpsc::Receiver<RecvPacket>,
     sender_exit: Option<oneshot::Sender<()>>,
     recv_exit: Option<oneshot::Sender<()>>,
 }
